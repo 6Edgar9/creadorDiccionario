@@ -1,7 +1,7 @@
 import hashlib
 import json
 import os
-import itertools
+import glob
 
 db_file = "users.json"
 
@@ -44,7 +44,7 @@ def login():
     else:
         print("Usuario o contraseña incorrectos.")
 
-def brute_force_attack(dictionary_file):
+def brute_force_attack():
     username = input("Ingrese el nombre de usuario a atacar: ")
     
     if not os.path.exists(db_file):
@@ -60,18 +60,30 @@ def brute_force_attack(dictionary_file):
     
     stored_hash = users[username]
     
-    with open(dictionary_file, "r") as file:
-        for line in file:
-            word = line.strip()
-            if hash_password(word) == stored_hash:
-                print(f"Contraseña encontrada: {word}")
-                return
+    # Buscar todos los archivos de diccionario
+    dictionary_files = glob.glob("diccionario_*.txt")
     
-    print("No se encontró la contraseña en el diccionario.")
+    if not dictionary_files:
+        print("No se encontraron archivos de diccionario.")
+        return
+    
+    print(f"Archivos de diccionario encontrados: {len(dictionary_files)}")
+
+    # Probar contraseñas en todos los archivos encontrados
+    for dictionary_file in dictionary_files:
+        print(f"Probando con {dictionary_file}...")
+        with open(dictionary_file, "r", encoding="utf-8") as file:
+            for line in file:
+                word = line.strip()
+                if hash_password(word) == stored_hash:
+                    print(f"✅ Contraseña encontrada: {word}")
+                    return
+    
+    print("❌ No se encontró la contraseña en los diccionarios.")
 
 if __name__ == "__main__":
     while True:
-        print("1. Registrar usuario")
+        print("\n1. Registrar usuario")
         print("2. Iniciar sesión")
         print("3. Ataque de fuerza bruta")
         print("4. Salir")
@@ -82,8 +94,7 @@ if __name__ == "__main__":
         elif option == "2":
             login()
         elif option == "3":
-            dictionary_file = input("Ingrese el nombre del archivo de diccionario: ")
-            brute_force_attack(dictionary_file)
+            brute_force_attack()
         elif option == "4":
             break
         else:
