@@ -104,12 +104,6 @@ Si tu objetivo es **probar seguridad** o aprender buenas prácticas, considera m
 
 ---
 
-## 📄 Licencia
-
-Proyecto con licencia **MIT** — ver `LICENSE` si lo añades al repositorio.
-
----
-
 #### Dios, Assembly y la Patria
 #### Edrem
 
