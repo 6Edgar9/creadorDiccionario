@@ -36,7 +36,7 @@ Estas herramientas son *doble uso* (dual-use). Pueden emplearse para pruebas de 
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tuusuario/creadorDiccionario.git
+   git clone https://github.com/6Edgar9/creadorDiccionario.git
    cd creadorDiccionario
    ```
 
